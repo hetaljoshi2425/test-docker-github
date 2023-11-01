@@ -36,5 +36,5 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
             docker stop test-docker-github || true
             docker rm test-docker-github || true
-            docker run -d -p 80:80 --name test-docker-github ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
+            docker run -d -p 6000:6000 --name test-docker-github ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
 
