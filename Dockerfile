@@ -39,6 +39,7 @@ RUN npm run build
 # Nginx setup
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
-COPY  /etc/nginx/sites-available
+COPY  /etc/nginx/sites-available/nginx.conf
+
 EXPOSE 6000
 CMD ["nginx", "-g", "daemon off;"]
