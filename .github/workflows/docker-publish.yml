@@ -7,7 +7,7 @@ on:
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.actor }}/new-test:latest
+  IMAGE_NAME: ${{ github.actor }}/test-docker-github:latest
 
 jobs:
     publish:
