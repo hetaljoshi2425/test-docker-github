@@ -25,8 +25,16 @@
 # Build the application
 FROM node:16 AS build
 WORKDIR /app
+COPY package*.json ./
+
+# # Install application dependencies
+RUN npm install
+
+# # Copy the remaining application code
 COPY . .
-RUN npm install && npm run build
+
+# # Build the React app
+RUN npm run build
 
 # Nginx setup
 FROM nginx:alpine
