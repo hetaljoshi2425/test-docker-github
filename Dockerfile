@@ -39,7 +39,7 @@ RUN npm run build
 # Nginx setup
 FROM nginx:alpine
 # Copy the custom nginx config
-COPY /etc/nginx/sites-available/default /etc/nginx/sites-available/
+COPY ./etc/nginx/sites-available/default /etc/nginx/sites-available/
 
 COPY --from=build /app/build /usr/share/nginx/html
 
