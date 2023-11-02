@@ -38,16 +38,9 @@ RUN npm run build
 
 # Nginx setup
 FROM nginx:alpine
-# Copy the custom nginx config
-# Copy Nginx configuration files into the container
-COPY default /etc/nginx/sites-available/default
-COPY default.save /etc/nginx/sites-available/default.save
-
-# Optional: If you want to enable one of these configurations, create a symbolic link to `sites-enabled`
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-
 COPY --from=build /app/build /usr/share/nginx/html
-
-
+# Copy the Nginx configuration file(s) into the container
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./sites-available/ /etc/nginx/sites-available/
 EXPOSE 6000
 CMD ["nginx", "-g", "daemon off;"]
