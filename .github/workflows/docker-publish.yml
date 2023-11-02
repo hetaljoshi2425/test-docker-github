@@ -21,7 +21,7 @@ jobs:
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest .
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
 
-    - name: Deploy Docker image on server
+    - name: Deploy Docker image with Nginx on server
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SERVER_HOST }}
@@ -29,12 +29,26 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         password: ${{ secrets.SERVER_PSK }}
         script: |
-          # docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
-          # docker stop test-docker-github || true
-          # docker rm test-docker-github || true
-          # docker run -d --name test-docker-github ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
-            docker stop test-docker-github || true
-            docker rm test-docker-github || true
-            docker run -d -p 6000:6000 --name test-docker-github ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/nginx-docker-setup:latest
+          docker stop nginx-docker-setup || true
+          docker rm nginx-docker-setup || true
+          docker run -d -p 80:80 --name nginx-docker-setup ${{ secrets.DOCKERHUB_USERNAME }}/nginx-docker-setup:latest
+
+
+    # - name: Deploy Docker image on server
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.SERVER_HOST }}
+    #     username: ${{ secrets.SERVER_USER }}
+    #     key: ${{ secrets.SERVER_SSH_KEY }}
+    #     password: ${{ secrets.SERVER_PSK }}
+    #     script: |
+    #       # docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
+    #       # docker stop test-docker-github || true
+    #       # docker rm test-docker-github || true
+    #       # docker run -d --name test-docker-github ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
+    #         docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
+    #         docker stop test-docker-github || true
+    #         docker rm test-docker-github || true
+    #         docker run -d -p 6000:6000 --name test-docker-github ${{ secrets.DOCKERHUB_USERNAME }}/test-docker-github:latest
 
