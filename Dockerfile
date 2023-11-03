@@ -43,5 +43,6 @@ COPY --from=build /app/build /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/nginx.conf
 RUN ls -la
 COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./sites-available/ /etc/nginx/sites-available/EXPOSE 6000
+# COPY ./sites-available/ /etc/nginx/sites-available/
+EXPOSE 6000
 CMD ["nginx", "-g", "daemon off;"]
