@@ -48,6 +48,6 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 # Copy the static build directory from the build stage into the Nginx image
 COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 6000
+EXPOSE 3000
 
 CMD ["nginx", "-g", "daemon off;"]
